@@ -16,7 +16,7 @@ string reverseString(string str)
     
     while( stk.size() > 0)
        {
-	  res +=  stk.top();
+	 // res +=  stk.top();
 	   stk.pop();
        }
 

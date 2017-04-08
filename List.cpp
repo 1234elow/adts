@@ -9,11 +9,15 @@ class List::Node //self-referential Node class
 {
 	public:
 	   int data = 0;
+	   string name=" ";
 	   Node* link = nullptr;
 	   //link is a data member which is a pointer 
 	   //to an object of the same type (i.e. Node)
-	
+		Node(int val){
+			data = val;
+		}
 	};//end Node class definition (can only be seen by the List class)
+
 
 
 List::~List()
@@ -27,13 +31,13 @@ int List::size()
     return num_elements;
  }
 
-void List::insert(int val, int k)
+void List::insert(char val, int k)
 {
 	if (k < 1 or k > num_elements +1) //if the location is invalid
-	     throw out_of_range("List::insert("+to_string(val)+", " +to_string(k)+") failed. (valid indices are 1 to "+to_string(num_elements+1)+")");//throw an "out_of_range" exception
+	     throw out_of_range("List::insert("+val+", " +to_string(k)+") failed. (valid indices are 1 to "+to_string(num_elements+1)+")");//throw an "out_of_range" exception
 	
 	
-	Node* newPtr = new Node{val};
+	Node* newPtr = new Node(val);
 	
 	if(k == 1)
 	{
@@ -59,10 +63,48 @@ void List::insert(int val, int k)
      num_elements++;
  }
 
+void List::insert(int val, int k)
+{
+	if (k < 1 or k > num_elements +1) //if the location is invalid
+	     throw out_of_range("List::insert("+to_string(val)+", " +to_string(k)+") failed. (valid indices are 1 to "+to_string(num_elements+1)+")");//throw an "out_of_range" exception
+	
+	
+	Node* newPtr = new Node(val);
+	
+	if(k == 1)
+	{
+	  newPtr->link = frontPtr;
+	  frontPtr = newPtr;
+	 }
+	else
+	 {  
+	
+	  Node* tmpPtr = frontPtr;
+	  int loc = 1; 
+	  
+	    while( loc != k-1) //get pointer to (k-1)th node
+	     {
+		tmpPtr = tmpPtr->link;
+		loc++;
+	     }
+	
+	  newPtr->link = tmpPtr->link;
+	  tmpPtr->link = newPtr;  
+        }//end else
+
+     num_elements++;
+ }
+
+string List::getValues()
+{
+return to_string(frontPtr->data);
+}
+
 void List::remove(int k)
 {
+	int num = 0;
 	if (k < 1 or k > num_elements)//if the location is invalid 
-	     throw out_of_range("List::remove("+to_string(val)+", " +to_string(k)+") failed. (valid indices are 1 to "+to_string(num_elements)+")");//throw an "out_of_range" exception
+	     throw out_of_range("List::remove("+to_string(num)+", " +to_string(k)+") failed. (valid indices are 1 to "+to_string(num_elements)+")");//throw an "out_of_range" exception
 	
 	Node* delPtr;
 	

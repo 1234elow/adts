@@ -12,6 +12,7 @@ class Stack
 private:
 
    List data;
+   int i = 1;
 
 public:
 
@@ -23,11 +24,11 @@ public:
 
    int size();
 
-   void push(int);
+   void push(char);
 
    void pop();
 
-   int top();
+   string top();
 
    void clear();
 
